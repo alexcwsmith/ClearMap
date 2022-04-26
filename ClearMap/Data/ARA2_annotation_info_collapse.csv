@@ -4,6 +4,29 @@ id,name,acronym,red,green,blue,structure_order,parent_id,parent_acronym,collapse
 8,Basic cell groups and regions,grey,176,255,255,100,997,root,x
 567,Cerebrum,CH,176,240,255,200,8,grey,x
 688,Cerebral cortex,CTX,176,255,184,300,567,CH,x
+182305696,"Somatosensory Cortex, Unlabeled",SS_NoL,176,255,184,300,453,SS,
+182305712,"Somatosensory Cortex, Unlabeled",NoL,176,255,184,300,453,SS,
+312782560,Unlabeled,NoL,176,255,184,300,315,Isocortex,
+312782624,Unlabeled,NoL,176,255,184,300,453,SS,
+312782656,Unlabeled,NoL,176,255,184,300,315,Isocortex,
+484682464,Unlabeled,NoL,176,255,184,300,315,Isocortex,
+484682496,Unlabeled,NoL,176,255,184,300,315,Isocortex,
+484682528,commissural branch of stria terminalis,stc,204,204,204,300,301,Isocortex,
+496345664,Unlabeled,NoL,176,255,184,300,315,Isocortex,
+526157184,Unlabeled,NoL,176,255,184,300,315,Isocortex,
+526322272,Unlabeled,NoL,176,255,184,300,315,Isocortex,
+527696992,Unlabeled,NoL,176,255,184,300,315,Isocortex,
+549009216,Unlabeled,NoL,176,255,184,300,315,Isocortex,
+560581568,Unlabeled,NoL,176,255,184,300,315,Isocortex,
+563807424,Unlabeled,NoL,176,255,184,300,315,Isocortex,
+589508416,Unlabeled,NoL,176,255,184,300,315,Isocortex,
+589508480,Unlabeled,NoL,176,255,184,300,315,Isocortex,
+599626944,Unlabeled,NoL,176,255,184,300,315,Isocortex,
+606826624,Unlabeled,NoL,176,255,184,300,315,Isocortex,
+606826624,Unlabeled,NoL,176,255,184,300,315,Isocortex,
+606826688,Unlabeled,NoL,176,255,184,300,315,Isocortex,
+607344832,Unlabeled,NoL,176,255,184,300,315,Isocortex,
+614454272,Unlabeled,NoL,176,255,184,300,315,Isocortex,
 695,Cortical plate,CTXpl,112,255,112,400,688,CTX,x
 315,Isocortex,Isocortex,112,255,113,500,695,CTXpl,x
 184,"Frontal pole, cerebral cortex",FRP,112,255,113,600,315,Isocortex,x
@@ -152,6 +175,7 @@ id,name,acronym,red,green,blue,structure_order,parent_id,parent_acronym,collapse
 905,"Anterolateral visual area, layer 2/3",VISal2/3,0,161,189,14300,402,VISal,
 1114,"Anterolateral visual area, layer 4",VISal4,0,161,197,14400,402,VISal,
 233,"Anterolateral visual area, layer 5",VISal5,16,179,202,14500,402,VISal,
+312782592,"Anterolateral visual area, layer1, Unlabeled",VISal1_NoL,16,179,202,14500,402,VISal,
 601,"Anterolateral visual area, layer 6a",VISal6a,105,193,212,14600,402,VISal,
 649,"Anterolateral visual area, layer 6b",VISal6b,103,193,221,14700,402,VISal,
 394,Anteromedial visual area,VISam,112,255,98,14800,669,VIS,x
@@ -846,12 +870,12 @@ id,name,acronym,red,green,blue,structure_order,parent_id,parent_acronym,collapse
 348,"Midbrain, behavioral state related",MBsta,255,176,253,83700,313,MB,x
 374,"Substantia nigra, compact part",SNc,255,158,248,83800,348,MBsta,x
 1052,Pedunculopontine nucleus,PPN,255,158,255,83900,348,MBsta,x
-165,Midbrain raph� nuclei,RAmb,255,158,254,84000,348,MBsta,x
-12,Interfascicular nucleus raph�,IF,255,158,251,84100,165,RAmb,x
+165,Midbrain raphe nuclei,RAmb,255,158,254,84000,348,MBsta,x
+12,Interfascicular nucleus raphe,IF,255,158,251,84100,165,RAmb,x
 100,Interpeduncular nucleus,IPN,255,158,247,84200,165,RAmb,x
-197,Rostral linear nucleus raph�,RL,255,158,249,84300,165,RAmb,x
-591,Central linear nucleus raph�,CLI,255,158,253,84400,165,RAmb,x
-872,Dorsal nucleus raph�,DR,255,158,252,84500,165,RAmb,x
+197,Rostral linear nucleus raphe,RL,255,158,249,84300,165,RAmb,x
+591,Central linear nucleus raphe,CLI,255,158,253,84400,165,RAmb,x
+872,Dorsal nucleus raphe,DR,255,158,252,84500,165,RAmb,x
 1065,Hindbrain,HB,255,155,168,84600,343,BS,x
 771,Pons,P,255,155,136,84700,1065,HB,x
 1132,"Pons, sensory related",P-sen,255,170,98,84800,771,P,x
@@ -890,14 +914,14 @@ id,name,acronym,red,green,blue,structure_order,parent_id,parent_acronym,collapse
 574,Tegmental reticular nucleus,TRN,255,174,81,88100,987,P-mot,
 621,Motor nucleus of trigeminal,V,255,174,104,88200,987,P-mot,
 1117,"Pons, behavioral state related",P-sat,255,172,120,88300,771,P,x
-679,Superior central nucleus raph�,CS,255,172,119,88400,1117,P-sat,x
-137,"Superior central nucleus raph�, lateral part",CSl,255,172,119,88500,679,CS,x
-130,"Superior central nucleus raph�, medial part",CSm,255,172,119,88600,679,CS,x
+679,Superior central nucleus raphe,CS,255,172,119,88400,1117,P-sat,x
+137,"Superior central nucleus raphe, lateral part",CSl,255,172,119,88500,679,CS,x
+130,"Superior central nucleus raphe, medial part",CSm,255,172,119,88600,679,CS,x
 147,Locus ceruleus,LC,255,172,118,88700,1117,P-sat,x
 162,Laterodorsal tegmental nucleus,LDT,255,172,117,88800,1117,P-sat,x
 604,Nucleus incertus,NI,255,172,116,88900,1117,P-sat,x
 146,Pontine reticular nucleus,PRNr,255,172,120,89000,1117,P-sat,x
-238,Nucleus raph� pontis,RPO,255,172,115,89100,1117,P-sat,x
+238,Nucleus raphe pontis,RPO,255,172,115,89100,1117,P-sat,x
 350,Subceruleus nucleus,SLC,255,172,114,89200,1117,P-sat,x
 358,Sublaterodorsal nucleus,SLD,255,172,113,89300,1117,P-sat,x
 354,Medulla,MY,255,160,176,89400,1065,HB,x
@@ -975,9 +999,9 @@ id,name,acronym,red,green,blue,structure_order,parent_id,parent_acronym,collapse
 781,Nucleus y,y,255,212,203,96600,370,MY-mot,x
 76,Interstitial nucleus of the vestibular nerve,INV,255,212,188,96700,370,MY-mot,x
 379,"Medulla, behavioral state related",MY-sat,255,176,192,96800,354,MY,x
-206,Nucleus raph� magnus,RM,255,176,193,96900,379,MY-sat,
-230,Nucleus raph� pallidus,RPA,255,176,195,97000,379,MY-sat,
-222,Nucleus raph� obscurus,RO,255,176,194,97100,379,MY-sat,
+206,Nucleus raphe magnus,RM,255,176,193,96900,379,MY-sat,
+230,Nucleus raphe pallidus,RPA,255,176,195,97000,379,MY-sat,
+222,Nucleus raphe obscurus,RO,255,176,194,97100,379,MY-sat,
 1009,fiber tracts,fiber tracts,204,204,204,97200,997,root,x
 967,cranial nerves,cm,204,204,204,97300,1009,fiber tracts,x
 885,terminal nerve,tn,204,204,204,97400,967,cm,x
@@ -1118,6 +1142,7 @@ id,name,acronym,red,green,blue,structure_order,parent_id,parent_acronym,collapse
 908,"anterior commissure, temporal limb",act,204,204,204,110900,768,mfbc,
 940,cingulum bundle,cing,204,204,204,111000,768,mfbc,
 1099,fornix system,fxs,204,204,204,111100,768,mfbc,
+576073728,"Perifornical nucleus, Unlabeled",PeF_NoL,242,72,59,111100,768,fornix system,x
 466,alveus,alv,204,204,204,111200,1099,fxs,
 530,dorsal fornix,df,204,204,204,111300,1099,fxs,
 603,fimbria,fi,204,204,204,111400,1099,fxs,
@@ -1198,9 +1223,3 @@ id,name,acronym,red,green,blue,structure_order,parent_id,parent_acronym,collapse
 57,paramedian sulcus,pms,170,170,170,118900,1040,grv of CBX,
 65,parafloccular sulcus,pfs,170,170,170,119000,1040,grv of CBX,
 624,Interpeduncular fossa,IPF,170,170,170,119100,1024,grv,
-182305696,Unlabeled,NoL,176,255,184,300,453,SS,x
-182305712,Unlabeled,NoL,176,255,184,300,453,SS,x
-312782560,Unlabeled,NoL,176,255,184,300,315,Isocortex,x
-312782592,Unlabeled,NoL,176,255,184,300,453,SS,x
-312782624,Unlabeled,NoL,176,255,184,300,453,SS,x
-312782656,Unlabeled,NoL,176,255,184,300,315,Isocortex,x
