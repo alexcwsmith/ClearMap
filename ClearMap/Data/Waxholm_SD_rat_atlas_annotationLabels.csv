@@ -24,20 +24,20 @@
 10,Cingulate area 2,CING-2,29,104,235,497,
 405,Prelimbic area,PL,163,73,164,315,x
 413,Infralimbic area,IL,34,177,76,315,x
-496,Insula,INS,255,242,0,315,x
-414,Agranular insular cortex,AI,255,242,0,496,
-416,Granular insular cortex,AIg,239,228,176,496,
-409,"Agranular insular cortex, ventral area",AIv,255,201,14,496,
-410,Agranular insular cortex dorsal area ,AId,255,127,39,496,
-424,"Agranular insular cortex, posterior area ",AIp,181,230,29,496,
-495,Sensory cortex,SSC,255,128,192,315,x
-417,"Primary somatosensory area, forelimb representation",PSAfl,185,14,131,495,
-418,"Primary somatosensory area, dysgranular zone",PSAdg,237,28,36,495,
-420,"Primary somatosensory area, face representation",PSAfr,255,128,192,495,
-422,Secondary somatosensory area,SSA,200,100,250,495,
-423,"Primary somatosensory area, hindlimb representation",PSAhl,136,100,21,495,
-425,"Primary somatosensory area, barrel field",PSAbf,120,177,76,495,
-429,"Primary somatosensory area, trunk representation",PSAtr,225,150,201,495,
+596,Insula,INS,255,242,0,315,x
+414,Agranular insular cortex,AI,255,242,0,596,
+416,Granular insular cortex,AIg,239,228,176,596,
+409,"Agranular insular cortex, ventral area",AIv,255,201,14,596,
+410,Agranular insular cortex dorsal area ,AId,255,127,39,596,
+424,"Agranular insular cortex, posterior area ",AIp,181,230,29,596,
+595,Sensory cortex,SSC,255,128,192,315,x
+417,"Primary somatosensory area, forelimb representation",PSAfl,185,14,131,595,
+418,"Primary somatosensory area, dysgranular zone",PSAdg,237,28,36,595,
+420,"Primary somatosensory area, face representation",PSAfr,255,128,192,595,
+422,Secondary somatosensory area,SSA,200,100,250,595,
+423,"Primary somatosensory area, hindlimb representation",PSAhl,136,100,21,595,
+425,"Primary somatosensory area, barrel field",PSAbf,120,177,76,595,
+429,"Primary somatosensory area, trunk representation",PSAtr,225,150,201,595,
 493,Temporal cortex,TC,128,128,0,315,x
 444,Temporal association cortex,TCa,0,128,0,493,
 492,Rhinal cortex,RhC,122,187,51,315,x
@@ -48,10 +48,10 @@
 112,Perirhinal area 35,PERI-35,205,51,255,495,
 113,Perirhinal area 36,PERI-36,112,48,160,495,
 108,Postrhinal cortex,PostRh,40,112,130,492,x
-490,Parietal cortex,PC,255,255,232,315,x
-432,"Parietal association cortex, lateral area",PACl,255,240,29,490,
-433,"Parietal association cortex, medial area",PACm,108,0,108,490,
-436,"Parietal association cortex, posterior area ",PACp,128,0,64,490,
+590,Parietal cortex,PC,255,255,232,315,x
+432,"Parietal association cortex, lateral area",PACl,255,240,29,590,
+433,"Parietal association cortex, medial area",PACm,108,0,108,590,
+436,"Parietal association cortex, posterior area ",PACp,128,0,64,590,
 496,Retrosplenial cortex,RSC,200,128,164,315,x
 427,Retrosplenial dysgranular area,RSCdg,200,73,164,496,
 430,Retrosplenial granular area,RSCg,25,100,200,496,
@@ -86,12 +86,12 @@
 221,Ventromedial thalamic nucleus,THvm,0,185,126,549,x
 293,Ventral anterior thalamic nucleus,THva,255,136,0,549,x
 294,Ventral posterolateral thalamic nucleus,THpl,171,86,62,549,x
-559,Medial geniculate body,MGN,240,163,0,549,x
-295,"Medial geniculate body, dorsal division",MGNd,239,163,0,559,
-297,"Medial geniculate body, medial division",MGNm,10,244,217,559,
-298,"Medial geniculate body, ventral division",MGNv,131,58,31,559,
-299,"Medial geniculate body, suprageniculate nucleus",MGNs,10,244,150,559,
-150,"Medial geniculate body, marginal zone",MGNm,255,47,242,549,
+459,Medial geniculate body,MGN,240,163,0,549,x
+295,"Medial geniculate body, dorsal division",MGNd,239,163,0,459,
+297,"Medial geniculate body, medial division",MGNm,10,244,217,459,
+298,"Medial geniculate body, ventral division",MGNv,131,58,31,459,
+299,"Medial geniculate body, suprageniculate nucleus",MGNs,10,244,150,459,
+150,"Medial geniculate body, marginal zone",MGNm,255,47,242,459,
 204,Pregeniculate nucleus,MGNpr,255,25,0,549,
 205,Dorsal lateral geniculate nucleus,LGN,255,226,0,549,
 222,Submedius thalamic nucleus,THsub,130,0,217,549,
@@ -107,10 +107,10 @@
 283,"Lateral posterior thalamic nucleus, lateral part",THlpl,199,87,61,691,
 285,"Lateral posterior thalamic nucleus, mediorostral part",THlpm,60,179,113,691,
 286,"Lateral posterior thalamic nucleus, mediocaudal part",THlpmc,255,235,205,691,
-558,Mediodorsal thalamic nuclei,MD,255,86,127,549,x
-232,"Mediodorsal thalamic nucleus, lateral part",MDl,255,85,127,558,
-233,"Mediodorsal thalamic nucleus, central part",MDc,85,170,0,558,
-240,"Mediodorsal thalamic nucleus, medial part",MDm,170,255,255,558,
+458,Mediodorsal thalamic nuclei,MD,255,86,127,549,x
+232,"Mediodorsal thalamic nucleus, lateral part",MDl,255,85,127,458,
+233,"Mediodorsal thalamic nucleus, central part",MDc,85,170,0,458,
+240,"Mediodorsal thalamic nucleus, medial part",MDm,170,255,255,458,
 3,Subthalamic nucleus,STN,0,0,255,549,x
 266,"Ventral posterior nucleus of the thalamus, parvicellular part",VPN,0,255,8,549,x
 267,Parafascicular thalamic nucleus,PF,255,239,213,549,x
