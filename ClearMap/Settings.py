@@ -16,7 +16,7 @@ import os
 import socket
 
 
-IlastikPath = '/usr/local/ilastik-1.1.9-Linux';
+IlastikPath = '/d1/software/ilastik-1.3.3post3-Linux/';
 """str: Absolute path to the Ilastik 0.5 installation
 
 Notes:
@@ -26,7 +26,7 @@ Notes:
 """
 
 #path to eastix installation
-ElastixPath = '/usr/local/elastix';
+ElastixPath = '/usr/';
 """str: Absolue path to the elastix installation
 
 Notes:
@@ -64,13 +64,13 @@ def setup():
     if not ElastixPath is None:
         if not os.path.exists(ElastixPath):
             #raise RuntimeWarning('Settings: elastix path %s does not exists, cf. Settings.py or type help(Settings) for details.' % ElastixPath);
-            print 'Settings: elastix path %s does not exists, cf. Settings.py or type help(Settings) for details.' % ElastixPath;
+            print('Settings: elastix path %s does not exists, cf. Settings.py or type help(Settings) for details.' % ElastixPath)
             ElastixPath = None;
     
     if not IlastikPath is None:
         if not os.path.exists(IlastikPath):
             #raise RuntimeWarning('Settings: ilastik path %s does not exists, cf. Settings.py or type help(Settings) for details.' % IlastikPath);
-            print 'Settings: ilastik path %s does not exists, cf. Settings.py or type help(Settings) for details.' % IlastikPath;
+            print('Settings: ilastik path %s does not exists, cf. Settings.py or type help(Settings) for details.' % IlastikPath);
             IlastikPath = None;
 
 setup();
