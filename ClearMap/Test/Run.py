@@ -6,6 +6,7 @@ Created on Fri Jun 19 12:20:18 2015
 
 @author: ckirst
 """
+from __future__ import print_function
 
 #import os
 
@@ -220,7 +221,7 @@ def runVoxelization(parameter):
     if isinstance(si, basestring):
         si = dataSize(si);
         
-    print si
+    print(si)
 
     vox = voxelize(points, si, average = pv.AveragingDiameter, mode = pv.Mode);
     

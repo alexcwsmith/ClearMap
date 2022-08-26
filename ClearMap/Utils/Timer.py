@@ -5,6 +5,7 @@ Provides tools for timing
 
 
 """
+from __future__ import print_function
 #:copyright: Copyright 2015 by Christoph Kirst, The Rockefeller University, New York City
 #:license: GNU, see LICENSE.txt for details.
 
@@ -57,7 +58,7 @@ class Timer(object):
         Arguments:
             head (str or None): prefix to the string
         """
-        print self.elapsedTime(head = head);
+        print(self.elapsedTime(head = head));
     
     def formatElapsedTime(self, t):
         """Format time to string

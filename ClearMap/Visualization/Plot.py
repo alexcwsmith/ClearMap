@@ -11,6 +11,7 @@ Supported functionality:
       :func:`plotOverlayLabel`
 
 """
+from __future__ import print_function
 #:copyright: Copyright 2015 by Christoph Kirst, The Rockefeller University, New York City
 #:license: GNU, see LICENSE.txt for details.
 
@@ -42,7 +43,7 @@ def plotTiling(dataSource, tiling = "automatic", maxtiles = 20, x = all, y = all
     dim = image.ndim;
     
     if dim < 2 or dim > 4:
-        raise StandardError('plotTiling: image dimension must be 2 to 4');    
+        raise Exception('plotTiling: image dimension must be 2 to 4');    
     
     if dim == 2:
         image = image.reshape(image.shape + (1,));
@@ -62,7 +63,7 @@ def plotTiling(dataSource, tiling = "automatic", maxtiles = 20, x = all, y = all
         cmap = None;
     
     if ntiles > maxtiles:
-        print "plotTiling: number of tiles %d very big! Clipping at %d!" % (ntiles, maxtiles);
+        print("plotTiling: number of tiles %d very big! Clipping at %d!" % (ntiles, maxtiles));
         ntiles = maxtiles;
     
     if tiling == "automatic":

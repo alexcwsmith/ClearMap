@@ -11,6 +11,7 @@ See Also:
     * :const:`ElastixPath`
     * :mod:`~ClearMap.Parameter`
 """
+from __future__ import print_function
 
 import os
 import socket

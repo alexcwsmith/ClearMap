@@ -14,6 +14,7 @@ Example:
     (5, 3)
 
 """
+from __future__ import print_function
 #:copyright: Copyright 2015 by Christoph Kirst, The Rockefeller University, New York City
 #:license: GNU, see LICENSE.txt for details.
 
@@ -44,15 +45,15 @@ def test():
     
     points = numpy.random.rand(5,3);
     self.writePoints(fn, points);  
-    print "Wrote points to " + fn;
-    print "Points:"
-    print points
+    print("Wrote points to " + fn);
+    print("Points:")
+    print(points)
     
     points2 = self.readPoints(fn);
-    print "Read points: "
-    print points2
+    print("Read points: ")
+    print(points2)
     
-    print "Difference: " + str(numpy.abs(points-points2).max())
+    print("Difference: " + str(numpy.abs(points-points2).max()))
     
 
 if __name__ == "__main__":

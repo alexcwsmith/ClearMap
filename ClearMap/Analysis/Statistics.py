@@ -6,6 +6,7 @@ in voxelized and labeled data
 TODO: cleanup / make generic
 
 """
+from __future__ import print_function
 #:copyright: Copyright 2015 by Christoph Kirst, The Rockefeller University, New York City
 #:license: GNU, see LICENSE.txt for details.
 
@@ -475,7 +476,7 @@ def test():
     
     # print stats.ttest_ind(x,y, axis = 0, equal_var = False);
     pvals, psign = self.tTestVoxelization(x,y, signed = True);
-    print pvals
+    print(pvals)
     
     pvalscol = self.colorPValues(pvals, psign, positive = [255,0,0], negative = [0,255,0])
     

@@ -35,6 +35,7 @@ For exmaple the :func:`writeSubStack` routine makes uses of this information
 to write out only the sub-parts of the image that is will contribute to the
 final total image. 
 """
+from __future__ import print_function
 #:copyright: Copyright 2015 by Christoph Kirst, The Rockefeller University, New York City
 #:license: GNU, see LICENSE.txt for details.
 
@@ -205,7 +206,7 @@ def calculateChunkSize(size, processes = 2, chunkSizeMax = 100, chunkSizeMin = 3
     chunksize = (size + (nchunks-1) * chunkOverlap) / nchunks;
     
     if verbose:
-        print pre + "Estimated chunk size " + str(chunksize) + " in " + str(nchunks) + " chunks!";
+        print(pre + "Estimated chunk size " + str(chunksize) + " in " + str(nchunks) + " chunks!");
     
     if nchunks == 1:
         return 1, [(0, chunksize)], [0, chunksize]
@@ -221,7 +222,7 @@ def calculateChunkSize(size, processes = 2, chunkSizeMax = 100, chunkSizeMin = 3
                     chunkOptimizationSize = False;
                     
             if verbose:
-                print pre + "Optimizing chunk size to fit number of processes!"
+                print(pre + "Optimizing chunk size to fit number of processes!")
                 
             if not chunkOptimizationSize:
                 #try to deccrease chunksize / increase chunk number to fit distribution on processors
@@ -229,7 +230,7 @@ def calculateChunkSize(size, processes = 2, chunkSizeMax = 100, chunkSizeMin = 3
                 chunksize = (size + (nchunks-1) * chunkOverlap) / nchunks;
                 
                 if verbose:
-                    print pre + "Optimized chunk size decreased to " + str(chunksize) + " in " + str(nchunks) + " chunks!";
+                    print(pre + "Optimized chunk size decreased to " + str(chunksize) + " in " + str(nchunks) + " chunks!");
                     
             else:
                 if nchunks != np:
@@ -238,27 +239,27 @@ def calculateChunkSize(size, processes = 2, chunkSizeMax = 100, chunkSizeMin = 3
                     chunksize = (size + (nchunks-1) * chunkOverlap) / nchunks;
                                   
                     if verbose:
-                        print pre + "Optimized chunk size increased to " + str(chunksize) + " in " + str(nchunks) + " chunks!";
+                        print(pre + "Optimized chunk size increased to " + str(chunksize) + " in " + str(nchunks) + " chunks!");
                 
                 else:
                     if verbose:
-                        print pre + "Optimized chunk size unchanged " + str(chunksize) + " in " + str(nchunks) + " chunks!";
+                        print(pre + "Optimized chunk size unchanged " + str(chunksize) + " in " + str(nchunks) + " chunks!");
         
         else:
             if verbose:
-                print pre + "Optimized chunk size unchanged " + str(chunksize) + " in " + str(nchunks) + " chunks!";
+                print(pre + "Optimized chunk size unchanged " + str(chunksize) + " in " + str(nchunks) + " chunks!");
     
     
     #increase overlap if chunks to small
     chunkSizeMin = min(chunkSizeMin, chunkOverlap);
     if chunksize < chunkSizeMin:
         if verbose: 
-            print pre + "Warning: optimal chunk size " + str(chunksize) + " smaller than minimum chunk size " + str(chunkSizeMin) + "!"; 
+            print(pre + "Warning: optimal chunk size " + str(chunksize) + " smaller than minimum chunk size " + str(chunkSizeMin) + "!"); 
         chunksize = chunkSizeMin;
         chunkOverlap = math.ceil(chunksize - (size - chunksize) / (nchunks -1));
         
         if verbose:        
-            print pre + "Warning: setting chunk overlap to " + str(chunkOverlap) + "!";
+            print(pre + "Warning: setting chunk overlap to " + str(chunkOverlap) + "!");
            
     #calucalte actual chunk sizes
     chunksizerest = chunksize;
@@ -292,9 +293,9 @@ def calculateChunkSize(size, processes = 2, chunkSizeMax = 100, chunkSizeMin = 3
     zcenters.append(size);
     
     if verbose:    
-        print zranges
-        print pre + "final chunks : " + str(zranges);
-        print pre + "final centers: " + str(zcenters);
+        print(zranges)
+        print(pre + "final chunks : " + str(zranges));
+        print(pre + "final centers: " + str(zcenters));
     
     return nchunks, zranges, zcenters;
 
@@ -401,7 +402,7 @@ def parallelProcessStack(source, x = all, y = all, z = all, sink = None,
                                    
     nSubStacks = len(subStacks);
     if verbose:
-        print "Number of SubStacks: %d" % nSubStacks;
+        print("Number of SubStacks: %d" % nSubStacks);
                                        
     #for i in range(nSubStacks):
     #    self.printSubStackInfo(subStacks[i]);

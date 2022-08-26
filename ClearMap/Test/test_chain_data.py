@@ -4,6 +4,7 @@ Created on Sat Jul 25 16:13:56 2015
 
 @author: ckirst
 """
+from __future__ import print_function
 
 
 ##############################################################################
@@ -44,7 +45,7 @@ iDISCO.Alignment.Elastix.ElastixSettings.printInfo();
 
 resultDirectory = runAlignment(parameter);
 
-print "Aligned images: result directory: %s" % resultDirectory
+print("Aligned images: result directory: %s" % resultDirectory)
 
 
 
@@ -145,7 +146,7 @@ elx.ElastixSettings.printInfo();
 
 resultDirectory = runAlignment(parameter);
 
-print "Aligned cfos with autofluo: result directory: %s" % resultDirectory
+print("Aligned cfos with autofluo: result directory: %s" % resultDirectory)
 
 
 
@@ -391,19 +392,19 @@ parameter.Resampling.Orientation = (1,2,3);
 
 #centers
 centers = io.readPoints(os.path.join(basedirectory, 'cells.csv'))
-print "Center shape: (%d, %d)" % centers.shape
+print("Center shape: (%d, %d)" % centers.shape)
 
 
 datasize = (2560, 2160, 1728); # takes (y,x,z)
-print datasize
+print(datasize)
 
 rcenters = resamplePoints(centers, datasize, parameter.Resampling.ResolutionData, parameter.Resampling.ResolutionReference, parameter.Resampling.Orientation)
-print "Reshaped centers shape: (%d, %d)" % rcenters.shape
+print("Reshaped centers shape: (%d, %d)" % rcenters.shape)
 
 if verbose:
     datares = io.readData(os.path.join(basedirectory, 'autofluo_resample.tif'));
     #print "Shape raw: " + str(dataraw.shape)
-    print "Shape res: " + str(datares.shape)
+    print("Shape res: " + str(datares.shape))
     
     #Plot.plotOverlayPoints(dataraw*0.01, centers)er();
 
@@ -608,7 +609,7 @@ labs = lb.labelPoints(pts, '/home/mtllab/Documents/warping/annotation_25_right.t
 ##
 counts = lb.countPointsInRegions(pts, '/home/mtllab/Documents/warping/annotation_25_right.tif');
 
-print counts
+print(counts)
 
 
 
@@ -650,7 +651,7 @@ parameter.Alignment.AlignmentDirectory = os.path.join(basedirectory, 'elastix');
 
 rcenters2 = rcenters.copy();
 rcenters2 = rcenters2[:, [1,0,2]];
-print rcenters2.shape
+print(rcenters2.shape)
 
 acenters = elx.transformPoints(rcenters2, alignmentdirectory = parameter.Alignment.AlignmentDirectory);
 

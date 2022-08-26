@@ -42,6 +42,7 @@ Example:
 After execution this example inspect the result of the cell detection in 
 the folder 'Test/Data/CellShape/cellshape\_\\d{3}.tif'.
 """
+from __future__ import print_function
 #:copyright: Copyright 2015 by Christoph Kirst, The Rockefeller University, New York City
 #:license: GNU, see LICENSE.txt for details.
 
@@ -223,7 +224,7 @@ def test():
     
     c = self.detectCells(img, dogSize = None, cellShapeThreshold = 1, cellShapeFile = '/home/ckirst/Science/Projects/BrainActivityMap/Analysis/iDISCO/Test/Data/CellShape/cellshape_\d{3}.tif');
     
-    print 'done, found %d cells !' % c[0].shape[0]
+    print('done, found %d cells !' % c[0].shape[0])
 
 
     #test intensities:
@@ -231,7 +232,7 @@ def test():
     x = numpy.random.rand(30,30,10);
     centers = numpy.array([[0,0,0], [29,29,9]]);
     i = self.findIntensity(x, centers, boxSize = (1,1,1));
-    print i
+    print(i)
 
 
 if __name__ == '__main__':

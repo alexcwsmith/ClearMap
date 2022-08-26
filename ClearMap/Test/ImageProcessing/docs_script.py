@@ -4,6 +4,7 @@ Created on Sat Dec 19 04:29:29 2015
 
 @author: ckirst
 """
+from __future__ import print_function
 
 import os
 import ClearMap.Settings as settings
@@ -52,7 +53,7 @@ dataMax = findExtendedMaxima(dataDoG, hMax = None, verbose = True, threshold = 1
 
 from ClearMap.ImageProcessing.MaximaDetection import findCenterOfMaxima
 cells = findCenterOfMaxima(data, dataMax);
-print cells.shape
+print(cells.shape)
 
 plt.plotOverlayPoints(data, cells, z = (10,16))
 

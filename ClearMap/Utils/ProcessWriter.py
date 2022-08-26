@@ -3,6 +3,7 @@
 Provides simple formatting tools to print text with parallel process header
 
 """
+from __future__ import print_function
 #:copyright: Copyright 2015 by Christoph Kirst, The Rockefeller University, New York City
 #:license: GNU, see LICENSE.txt for details.
 
@@ -39,7 +40,7 @@ class ProcessWriter(object):
             text (str): the text input
         """
         
-        print self.writeString(text);
+        print(self.writeString(text));
         sys.stdout.flush();
 
     

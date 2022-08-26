@@ -6,6 +6,7 @@ Created on Thu Jun  4 14:37:06 2015
 
 @author: ckirst
 """
+from __future__ import print_function
 
 
 import os
@@ -45,8 +46,8 @@ parameter.DataSource.ZRange = (100,120);
 # load data
 
 data = io.readData(parameter.DataSource.ImageFile, x = parameter.DataSource.XRange, y = parameter.DataSource.YRange, z = parameter.DataSource.ZRange, resolution = 0);
-print "Loaded data from " + parameter.DataSource.ImageFile;
-print "Data size is: " + str(data.shape)
+print("Loaded data from " + parameter.DataSource.ImageFile);
+print("Data size is: " + str(data.shape))
 
 # visualize
 
@@ -60,22 +61,22 @@ if verbose:
 parameter.ImageProcessing.Parameter.Background = (15,15);
 
 img = ip.removeBackground(data, parameter = parameter.ImageProcessing, verbose =  verbose);
-print img.dtype
-print img.shape
+print(img.dtype)
+print(img.shape)
 
 # size of differeence of gaussian filter
 parameter.ImageProcessing.Parameter.Dog = (7, 7, 11);
 
 img = ip.dogFilter(img, parameter = parameter.ImageProcessing, verbose =  verbose);
-print img.dtype
-print img.shape
+print(img.dtype)
+print(img.shape)
 
 # h value for h max detection
 parameter.ImageProcessing.Parameter.HMax = 20;
 
 imgmax = ip.findExtendedMaxima(img, parameter = parameter.ImageProcessing, verbose =  verbose);
-print img.dtype
-print img.shape
+print(img.dtype)
+print(img.shape)
 
 centers, intensities = ip.findCenterOfMaxima(img, imgmax, parameter = parameter.ImageProcessing, verbose =  verbose);
 
@@ -139,8 +140,8 @@ parameter.DataSource.ZRange = all;
 
 # load data
 data = io.readData(parameter.DataSource.ImageFile, x = parameter.DataSource.XRange, y = parameter.DataSource.YRange, z = parameter.DataSource.ZRange, resolution = 0);
-print "Loaded data from " + parameter.DataSource.ImageFile;
-print "Data size is: " + str(data.shape)
+print("Loaded data from " + parameter.DataSource.ImageFile);
+print("Data size is: " + str(data.shape))
 
 # visualize
 if verbose:
@@ -153,16 +154,16 @@ import math
 parameter.ImageProcessing.Parameter.Rescale  =  1.0 / math.pow(2,16) * math.pow(2,8) * 10;
 
 dataw = ip.rescaleToIlastik(data, parameter.ImageProcessing);
-print dataw.dtype
-print dataw.max()
+print(dataw.dtype)
+print(dataw.max())
 
 
 # radius for background removal
 parameter.ImageProcessing.Parameter.Background = (15,15);
 
 img = ip.removeBackground(data, parameter = parameter.ImageProcessing, verbose =  verbose);
-print img.dtype
-print img.shape
+print(img.dtype)
+print(img.shape)
 
 # save to train classifier in ilastik
 io.OME.writeData(dataw, os.path.join(basedirectory, "Test/Data/Ilastik/image"))
@@ -240,7 +241,7 @@ parameter.Resampling.Processes = 4;
 
 resampledImage = runResampling(parameter);
 
-print "Resampled image saved as %s" % resampledImage
+print("Resampled image saved as %s" % resampledImage)
 
 
 
@@ -286,7 +287,7 @@ iDISCO.Alignment.Elastix.ElastixSettings.printInfo();
 
 resultDirectory = runAlignment(parameter);
 
-print "Aligned images: result directory: %s" % resultDirectory
+print("Aligned images: result directory: %s" % resultDirectory)
 
 
 
@@ -371,7 +372,7 @@ runInitializeElastix(parameter);
 
 resultDirectory = runAlignment(parameter);
 
-print "Aligned images: result directory: %s" % resultDirectory
+print("Aligned images: result directory: %s" % resultDirectory)
 
 
 
@@ -412,8 +413,8 @@ parameter.DataSource.ZRange = (100,120);
 # load data
 
 data = io.readData(parameter.DataSource.ImageFile, x = parameter.DataSource.XRange, y = parameter.DataSource.YRange, z = parameter.DataSource.ZRange, resolution = 0);
-print "Loaded data from " + parameter.DataSource.ImageFile;
-print "Data size is: " + str(data.shape)
+print("Loaded data from " + parameter.DataSource.ImageFile);
+print("Data size is: " + str(data.shape))
 
 # visualize
 
@@ -427,22 +428,22 @@ if verbose:
 parameter.ImageProcessing.Parameter.Background = (15,15);
 
 img = ip.removeBackground(data, parameter = parameter.ImageProcessing, verbose =  verbose);
-print img.dtype
-print img.shape
+print(img.dtype)
+print(img.shape)
 
 # size of differeence of gaussian filter
 parameter.ImageProcessing.Parameter.Dog = (7, 7, 11);
 
 img = ip.dogFilter(img, parameter = parameter.ImageProcessing, verbose =  verbose);
-print img.dtype
-print img.shape
+print(img.dtype)
+print(img.shape)
 
 # h value for h max detection
 parameter.ImageProcessing.Parameter.HMax = 20;
 
 imgmax = ip.findExtendedMaxima(img, parameter = parameter.ImageProcessing, verbose =  verbose);
-print img.dtype
-print img.shape
+print(img.dtype)
+print(img.shape)
 
 centers, intensities = ip.findCenterOfMaxima(img, imgmax, parameter = parameter.ImageProcessing, verbose =  verbose);
 

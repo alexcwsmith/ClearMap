@@ -69,7 +69,7 @@ import os
 import math
 import numpy
 
-import multiprocessing
+import multiprocess as multiprocessing
 #from pathos.pools import ProcessPool 
 
 import tempfile
@@ -418,6 +418,7 @@ def resampleData(source, sink = None,  orientation = None, dataSizeSink = None, 
         * only a minimal set of information to detremine the resampling parameter 
           has to be given, e.g. dataSizeSource and dataSizeSink
     """
+        
     orientation = fixOrientation(orientation);
     
     if isinstance(dataSizeSink, basestring):
@@ -446,9 +447,7 @@ def resampleData(source, sink = None,  orientation = None, dataSizeSink = None, 
     for i in range(nZ):
         argdata.append( (source, os.path.join(processingDirectory, 'resample_%04d.tif' % i), dataSizeSinkI, interpolation, i, nZ, verbose) );  
         #print argdata[i]
-#    pool.map(_resampleXYParallel, argdata);
-    pool.map_async(_resampleXYParallel, argdata);
-
+    pool.map(_resampleXYParallel, argdata);
     pool.close() #TODO: Check if this fixes issue
     pool.join()
     
@@ -478,6 +477,9 @@ def resampleData(source, sink = None,  orientation = None, dataSizeSink = None, 
     #resampledData = resampledData.transpose([1,2,0]);
     #resampledData = resampledData.transpose([2,1,0]);
     
+    if cleanup:
+        shutil.rmtree(processingDirectory);
+
     if not orientation is None:
         
         #reorient
@@ -505,10 +507,7 @@ def resampleData(source, sink = None,  orientation = None, dataSizeSink = None, 
             sink = source + '_resample.tif';
         else:
             raise RuntimeError('resampleData: automatic sink naming not supported for non string source!');
-
-    if cleanup:
-        shutil.rmtree(processingDirectory);
-   
+    
     return io.writeData(sink, resampledData);
     
     
@@ -608,9 +607,7 @@ def resampleDataInverse(sink, source = None, dataSizeSource = None, orientation 
     argdata = [];
     for i in range(nZ):
         argdata.append( (source, fl.fileExpressionToFileName(files, i), dataSizeSource, interpolation, i, nZ) );  
- #   pool.map(_resampleXYParallel, argdata);
-    pool.map_async(_resampleXYParallel, argdata);
-
+    pool.map(_resampleXYParallel, argdata);
     pool.close() #TODO: Check if this fixes issue
     pool.join()
     

@@ -6,6 +6,7 @@ Test Processing Chain with Synthetic Data
 
 @author: ckirst
 """
+from __future__ import print_function
 
 
 
@@ -44,7 +45,7 @@ resamplingParameter = {
 
 
 resampledImage = resampleData(**resamplingParameter)
-print "Resampled image saved as %s" % resampledImage
+print("Resampled image saved as %s" % resampledImage)
 
 
 # create reference for further tests
@@ -53,7 +54,7 @@ print "Resampled image saved as %s" % resampledImage
 resamplingParameter["sink"] = os.path.join(baseDirectory, 'Synthetic/test_iDISCO_reference.tif');
 resamplingParameter["resolutionSink"] = (12, 12, 5);
 referenceImage = resampleData(**resamplingParameter);
-print "Reference image saved as %s" % referenceImage
+print("Reference image saved as %s" % referenceImage)
 
 
 # use None as sink to get the numpy array
@@ -96,7 +97,7 @@ alignmentParameter = {
 
 result = alignData(**alignmentParameter);
 
-print "Aligned images: result directory: %s" % result
+print("Aligned images: result directory: %s" % result)
 
 
 
@@ -177,7 +178,7 @@ allParameter = joinParameter(stackProcessingParameter, spotDetectionParameter, {
 #allParameter = joinParameter(stackProcessingParameter, spotDetectionParameter, {'x' : all, 'y' : all, 'z' : all})
 
 result = detectCells(**allParameter);
-print result
+print(result)
 
 verbose = True;
 if verbose:
@@ -213,7 +214,7 @@ baseDirectory = os.path.join(settings.IDISCOPath, 'Test');
 files = os.path.join(baseDirectory, 'Data/Synthetic/test_iDISCO_\d{3}.tif');
 
 dataSize = io.dataSize(files);
-print dataSize
+print(dataSize)
 
 
 resamplingParameter = {
@@ -234,16 +235,16 @@ resamplingParameter = {
 
 #centers
 points = io.readPoints(os.path.join(baseDirectory, 'Synthetic/cells.csv'));
-print "points shape: (%d, %d)" % points.shape
+print("points shape: (%d, %d)" % points.shape)
 
 respoints = resamplePoints(points, dataSize, shiftPoints = True, **resamplingParameter);
-print "Reshaped centers shape: (%d, %d)" % respoints.shape
+print("Reshaped centers shape: (%d, %d)" % respoints.shape)
 
 if verbose:
     dataraw = io.readData(os.path.join(baseDirectory, 'Data/Synthetic/test_iDISCO_\d{3}.tif'));
     datares = io.readData(os.path.join(baseDirectory, 'Synthetic/test_iDISCO_resample.tif'));
-    print "Shape raw: " + str(dataraw.shape)
-    print "Shape res: " + str(datares.shape)
+    print("Shape raw: " + str(dataraw.shape))
+    print("Shape res: " + str(datares.shape))
     
     plot.plotOverlayPoints(dataraw*0.01, points);
     plot.plotOverlayPoints(datares*0.01, respoints);
@@ -252,7 +253,7 @@ if verbose:
 #check inverse:
 resipoints = resamplePointsInverse(respoints, dataSize, **resamplingParameter);
 diff = points - resipoints;
-print (diff.max(), diff.min());
+print((diff.max(), diff.min()));
 
 
 
@@ -279,7 +280,7 @@ points = numpy.array([[0,0,0],[74,0,0],[0,52,0],[0,0,23],[74,52,0]]);
 #acenters = elx.transformPoints(rcenters, alignmentdirectory = parameter.Alignment.AlignmentDirectory, outdirectory = pointsdir);
 pointsa = elx.transformPoints(points, resultDirectory = resultDirectory, transformDirectory = transformDirectory);
 
-print pointsa
+print(pointsa)
 
 
 
@@ -317,9 +318,9 @@ if verbose:
     referencedata = io.readData(referenceFile);
     transformdata = io.readData(resultFile);
 
-    print resampledata.shape
-    print referencedata.shape
-    print transformdata.shape    
+    print(resampledata.shape)
+    print(referencedata.shape)
+    print(transformdata.shape)    
 
     plot.plotTiling(0.01 * resampledata)
     plot.plotTiling(0.01 * referencedata)

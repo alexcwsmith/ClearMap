@@ -13,6 +13,7 @@ Example:
     >>> raw.dataSize(filename);
     (20, 50, 10)
 """
+from __future__ import print_function
 #:copyright: Copyright 2015 by Christoph Kirst, The Rockefeller University, New York City
 #:license: GNU, see LICENSE.txt for details.
 
@@ -91,7 +92,7 @@ def readData(filename, x = all, y = all, z = all):
     im = imr.GetOutput()
     dims = im.GetDimensions()
     
-    print dims    
+    print(dims)    
     
     sc = im.GetPointData().GetScalars()
     img = vtk_to_numpy(sc)
@@ -302,33 +303,33 @@ def test():
     data[5:15, 20:45, 2:9] = 0;
 
     #reload(self)
-    print "writing raw image to: " + fn;    
+    print("writing raw image to: " + fn);    
     self.writeData(fn, data);
 
-    print "Loading raw image from: " + fn;
+    print("Loading raw image from: " + fn);
     img = self.readData(fn);  
-    print "Image size: " + str(img.shape)
+    print("Image size: " + str(img.shape))
     
     diff = img - data;
-    print (diff.max(), diff.min())
+    print((diff.max(), diff.min()))
 
     #some uint type
-    print "writing raw image to: " + fn;    
+    print("writing raw image to: " + fn);    
     udata = data * 10;
     udata = udata.astype('uint16');
     self.writeData(fn, udata);
 
-    print "Loading raw image from: " + fn;
+    print("Loading raw image from: " + fn);
     img = self.readData(fn);  
-    print "Image size: " + str(img.shape)
+    print("Image size: " + str(img.shape))
     
     diff = img - udata;
-    print (diff.max(), diff.min())
+    print((diff.max(), diff.min()))
     
     
     #dataSize
-    print "dataSize  is %s" % str(self.dataSize(fn))
-    print "dataZSize is %s" % str(self.dataZSize(fn))
+    print("dataSize  is %s" % str(self.dataSize(fn)))
+    print("dataZSize is %s" % str(self.dataZSize(fn)))
     
 
 if __name__ == "__main__":

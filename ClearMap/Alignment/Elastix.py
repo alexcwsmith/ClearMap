@@ -44,6 +44,7 @@ See Also:
     `Elastix documentation <http://elastix.isi.uu.nl/>`_
     :mod:`~ClearMap.Alignment.Resampling`
 """
+from __future__ import print_function
 #:copyright: Copyright 2015 by Christoph Kirst, The Rockefeller University, New York City
 #:license: GNU, see LICENSE.txt for details.
 
@@ -100,11 +101,11 @@ def printSettings():
     global ElastixBinary, ElastixLib, TransformixBinary, Initialized
     
     if Initialized:
-        print "ElastixBinary     = %s" % ElastixBinary;
-        print "ElastixLib        = %s" % ElastixLib;
-        print "TransformixBinary = %s" % TransformixBinary;
+        print("ElastixBinary     = %s" % ElastixBinary);
+        print("ElastixLib        = %s" % ElastixLib);
+        print("TransformixBinary = %s" % TransformixBinary);
     else:
-        print "Elastix not initialized";
+        print("Elastix not initialized");
 
 
 def setElastixLibraryPath(path = None): 
@@ -125,7 +126,7 @@ def setElastixLibraryPath(path = None):
         ldpath = 'DYLD_LIBRARY_PATH';
     print(ldpath)
     
-    if os.environ.has_key(ldpath):
+    if ldpath in os.environ:
         lp = os.environ[ldpath];
         if not path in lp.split(':'):
             os.environ[ldpath] = lp + ':' + path;
@@ -178,7 +179,7 @@ def initializeElastix(path = None):
         
     Initialized = True;
     
-    print "Elastix sucessfully initialized from path: %s" % path;
+    print("Elastix sucessfully initialized from path: %s" % path);
     
     import platform
     systemname = platform.system()
@@ -803,10 +804,10 @@ def test():
     
     resultdir = os.path.join(p, 'Test/Elastix/Output');
     
-    print 'Searching for transformation parameter file in ' + resultdir;
+    print('Searching for transformation parameter file in ' + resultdir);
     pf = self.getTransformParameterFile(resultdir)
       
-    print 'Found: ' + pf;
+    print('Found: ' + pf);
     
     
     #replace path in trasform parameter files:
@@ -819,11 +820,11 @@ def test():
     #transform points
     pts = numpy.random.rand(5,3);    
      
-    print 'Transforming points: '
+    print('Transforming points: ')
     tpts = self.transformPoints(pts, transformParameterFile = pf, indices = False);
-    print pts
-    print 'Transformed points: '
-    print tpts
+    print(pts)
+    print('Transformed points: ')
+    print(tpts)
     
     
     #deformation and distance fields     

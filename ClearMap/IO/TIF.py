@@ -14,6 +14,7 @@ Example:
     (50, 100, 30, 4)
     
 """
+from __future__ import print_function
 #:copyright: Copyright 2015 by Christoph Kirst, The Rockefeller University, New York City
 #:license: GNU, see LICENSE.txt for details.
 
@@ -195,40 +196,40 @@ def test():
     data = data.astype('int32');
 
     #reload(self)
-    print "writing raw image to: " + fn;    
+    print("writing raw image to: " + fn);    
     tif.writeData(fn, data);
 
-    print "Loading raw image from: " + fn;
+    print("Loading raw image from: " + fn);
     img = tif.readData(fn);  
-    print "Image size: " + str(img.shape)
+    print("Image size: " + str(img.shape))
     
     diff = img - data;
-    print (diff.max(), diff.min())
+    print((diff.max(), diff.min()))
     
     
-    print "Loading raw image from %s with limited z range: " % fn;
+    print("Loading raw image from %s with limited z range: " % fn);
     img = tif.readData(fn, z = (3,8));  
-    print "Image size: " + str(img.shape)
+    print("Image size: " + str(img.shape))
     
     diff = img - data[:,:,3:8];
-    print (diff.max(), diff.min())
+    print((diff.max(), diff.min()))
 
     
     fn = os.path.join(basedir,'Test/Data/OME/16-17-27_0_8X-s3-20HF_UltraII_C00_xyz-Table Z1000.ome.tif')        
     
     ds = tif.dataSize(fn);
-    print "Image size form dataSiZe: " + str(ds)    
+    print("Image size form dataSiZe: " + str(ds))    
     
     
     img = tif.readData(fn);  
-    print "Image size: " + str(img.shape)
+    print("Image size: " + str(img.shape))
     
     #dataSize
-    print "dataSize  is %s" % str(tif.dataSize(fn))
-    print "dataZSize is %s" % str(tif.dataZSize(fn))
+    print("dataSize  is %s" % str(tif.dataSize(fn)))
+    print("dataZSize is %s" % str(tif.dataZSize(fn)))
     
-    print "dataSize  is %s" % str(tif.dataSize(fn, y = (10,20)))
-    print "dataZSize is %s" % str(tif.dataZSize(fn))
+    print("dataSize  is %s" % str(tif.dataSize(fn, y = (10,20))))
+    print("dataZSize is %s" % str(tif.dataZSize(fn)))
         
     #test writing multi channel image
     x = numpy.random.rand(50,100,30,4) * 10;
@@ -239,7 +240,7 @@ def test():
     y.shape
         
     diff = x - y;
-    print (diff.max(), diff.min())
+    print((diff.max(), diff.min()))
 
 
 if __name__ == "__main__":

@@ -17,6 +17,7 @@ Example:
     (256, 320, 256)
 
 """
+from __future__ import print_function
 #:copyright: Copyright 2015 by Christoph Kirst, The Rockefeller University, New York City
 #:license: GNU, see LICENSE.txt for details.
 
@@ -309,7 +310,7 @@ def writePoints(filename, points, mode = "o", radius = 0.5, scale = all, offset 
     npts = points.shape[0];
     
     if points.shape[1] != 3:
-        raise StandardError("Points shape is not (n,3)!");
+        raise Exception("Points shape is not (n,3)!");
     
     #points = points[:,[0,1,2]]; # todo: check exchange of coordinates
     
@@ -323,7 +324,7 @@ def writePoints(filename, points, mode = "o", radius = 0.5, scale = all, offset 
     pointsS = points.copy();
     pointsS = transformPointsToImaris(pointsS, scale = scale, offset = offset);
     
-    print pointsS    
+    print(pointsS)    
     
     pts = numpy.c_[pointsS, radius * numpy.ones(npts)];
     ts =  numpy.zeros(npts);
@@ -401,7 +402,7 @@ def test():
     
     dsname = "/DataSet/ResolutionLevel 0/TimePoint 0/Channel 0/Data"
     ds = f.get(dsname)
-    print ds.shape
+    print(ds.shape)
 
     data = numpy.random.rand(20,50,10);
     data[5:15, 20:45, 2:9] = 0;
@@ -409,7 +410,7 @@ def test():
     data = data.astype('int32');
 
     #reload(self)
-    print "writing raw image to: " + fn;    
+    print("writing raw image to: " + fn);    
     self.writeData(fn, data);
    
     

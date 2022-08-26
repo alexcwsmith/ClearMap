@@ -4,6 +4,7 @@ Created on Tue Jul 28 13:33:30 2015
 
 @author: ckirst
 """
+from __future__ import print_function
 
 import numpy as np;
 
@@ -16,7 +17,7 @@ def dosomething(x):
 z = np.random.rand(215000,5);
 
 
-print z.shape
+print(z.shape)
 y = dosomething(z);
-print z.shape
-print y.shape
+print(z.shape)
+print(y.shape)

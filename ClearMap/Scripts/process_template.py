@@ -2,6 +2,7 @@
 """
 Template to run the processing pipeline
 """
+from __future__ import print_function
 #load the parameters:
 sampleName='LSM1R'
 testing=False

@@ -91,7 +91,7 @@ class LabelInfo(object):
         with open(annotationFile) as dfile:
             reader = csv.reader(dfile);
             #skip header
-            reader.next();
+            next(reader);
             labels = [LabelRecord._make((int(row[0]), row[1], row[2], [int(row[3]), int(row[4]), int(row[5])], _labelToInt(row[6]), _collapseToBool(row[7]))) for row in reader];
 
             dfile.close();

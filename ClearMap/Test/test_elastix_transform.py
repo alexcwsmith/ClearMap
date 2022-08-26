@@ -18,6 +18,7 @@ Notes:
 
 @author: ckirst
 """
+from __future__ import print_function
 
 
 ##############################################################################
@@ -57,7 +58,7 @@ parameter.Resampling.Processes = 4;
 
 resampledImage = runResampling(parameter);
 
-print "Resampled image saved as %s" % resampledImage
+print("Resampled image saved as %s" % resampledImage)
 
 
 # Reference
@@ -106,7 +107,7 @@ iDISCO.Alignment.Elastix.ElastixSettings.printInfo();
 
 resultDirectory = runAlignment(parameter);
 
-print "Aligned images: result directory: %s" % resultDirectory
+print("Aligned images: result directory: %s" % resultDirectory)
 
 
 
@@ -133,7 +134,7 @@ rcenters = numpy.array([[0,0,0],[0,52,0], [0,0,23], [74,0,0],[74,52,0]]);
 #acenters = elx.transformPoints(rcenters, alignmentdirectory = parameter.Alignment.AlignmentDirectory, outdirectory = pointsdir);
 acenters = elx.transformPoints(rcenters, alignmentdirectory = parameter.Alignment.AlignmentDirectory);
 
-print acenters
+print(acenters)
 
 
 
@@ -417,19 +418,19 @@ parameter.Voxelization.File = os.path.join(basedirectory, 'Synthetic/points_voxe
 
 resampledImage = runResampling(parameter);
 
-print "Resampled image saved as %s" % resampledImage
+print("Resampled image saved as %s" % resampledImage)
 
 resultDirectory = runAlignment(parameter);
 
-print "Aligned images: result directory: %s" % resultDirectory
+print("Aligned images: result directory: %s" % resultDirectory)
 
 runCellDetection(parameter)
 
-print "Cell detection done!"
+print("Cell detection done!")
 
 runCellCoordinateTransformationToReference(parameter)
 
-print "Cell transformation to reference done!"
+print("Cell transformation to reference done!")
 
 if verbose:
     refdata = io.readData(parameter.Alignment.FixedImage);
@@ -439,7 +440,7 @@ if verbose:
 
 runVoxelization(parameter);
 
-print "Voxelization done!"
+print("Voxelization done!")
 
 if verbose:
     #voxdata = io.readData(parameter.Alignment.FixedImage);
@@ -491,7 +492,7 @@ parameter.Resampling.Processes = 4;
 
 resampledImage = runResampling(parameter);
 
-print "Resampled image saved as %s" % resampledImage
+print("Resampled image saved as %s" % resampledImage)
 
 
 

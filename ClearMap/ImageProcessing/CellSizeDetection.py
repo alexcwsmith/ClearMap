@@ -12,7 +12,7 @@ import sys
 import numpy
 
 #from scipy.ndimage.measurements import watershed_ift
-from skimage.morphology import watershed
+from skimage.segmentation import watershed
 
 #from skimage.measure import regionprops
 import scipy.ndimage.measurements

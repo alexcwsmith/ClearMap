@@ -87,7 +87,7 @@ def structureElement2D(setype = 'Disk', sesize = (3,3)):
     setype = setype.lower();
            
     if len(sesize) != 2:
-        raise StandardError('structureElement2D: sesize is not 2d');
+        raise Exception('structureElement2D: sesize is not 2d');
         
     o = structureElementOffsets(sesize);
     omax = o.min(axis=1);
@@ -134,7 +134,7 @@ def structureElement3D(setype = 'Disk', sesize = (3,3,3)):
     setype = setype.lower();
            
     if len(sesize) != 3:
-        raise StandardError('structureElement3D: sesize is not 3d');
+        raise Exception('structureElement3D: sesize is not 3d');
             
     o = structureElementOffsets(sesize);
     omax = o.max(axis=1);

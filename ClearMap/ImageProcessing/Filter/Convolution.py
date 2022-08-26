@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from __future__ import print_function
 """
 Convolve volumetric data with a 3d kernel, optimized for memory / float32 use
 
@@ -165,17 +166,17 @@ def _test():
     cs = fftconvolve(x,k, mode='same');
     co = convolve(x,k);
     
-    print 'shapes:'
-    print cs.shape
-    print co.shape
+    print('shapes:')
+    print(cs.shape)
+    print(co.shape)
     
-    print 'dtypes:'
-    print cs.dtype;
-    print co.dtype;
+    print('dtypes:')
+    print(cs.dtype);
+    print(co.dtype);
     
-    print 'difference:'
+    print('difference:')
     diff = numpy.abs(cs-co);
-    print diff.max()
+    print(diff.max())
     
 if __name__ == "__main__":
     _test()
