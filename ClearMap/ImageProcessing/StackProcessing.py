@@ -121,7 +121,7 @@ def writeSubStack(filename, img, subStack = None):
         ii = 0;
         ee = -1;
     
-    return io.writeData(filename, img[:,:,ii:ee], startIndex = si );     
+    return io.writeData(filename, img[:,:,int(ii):int(ee)], startIndex = int(si) );     
 
 
 

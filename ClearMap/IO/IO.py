@@ -53,7 +53,7 @@ def fileExtension(filename):
         str: file extension or None
     """
     
-    if not isinstance(filename, basestring):
+    if not isinstance(filename, str):
         return None;
     
     fext = filename.split('.');
@@ -73,7 +73,7 @@ def isFile(source):
         bool: true if source is a real file   
     """
     
-    if not isinstance(source, basestring):
+    if not isinstance(source, str):
         return False;
   
     if os.path.exists(source):
@@ -95,7 +95,7 @@ def isFileExpression(source):
         bool: true if source is regular expression with a digit label
     """    
     
-    if not isinstance(source, basestring):
+    if not isinstance(source, str):
         return False;
     
     if isFile(source):
@@ -118,7 +118,7 @@ def isFileExpression(source):
         bool: true if source is a point data file
     """     
     
-    if not isinstance(source, basestring):
+    if not isinstance(source, str):
         return False;
     
     fext = fileExtension(source);
@@ -138,7 +138,7 @@ def isDataFile(source):
         bool: true if source is an image data file
     """   
     
-    if not isinstance(source, basestring):
+    if not isinstance(source, str):
         return False;    
     
     fext = fileExtension(source);
@@ -250,7 +250,7 @@ def dataSize(source, x = all, y = all, z = all, **args):
         tuple: size of the image data after reading and range reduction
     """ 
     
-    if isinstance(source, basestring):
+    if isinstance(source, str):
         mod = dataFileNameToModule(source);
         return mod.dataSize(source, x = x, y = y, z = z, **args);
     elif isinstance(source, numpy.ndarray):
@@ -272,7 +272,7 @@ def dataZSize(source, z = all, **args):
         int: size of the image data in z after reading and range reduction
     """ 
       
-    if isinstance(source, basestring):
+    if isinstance(source, str):
         mod = dataFileNameToModule(source);
         return mod.dataZSize(source, z = z, **args);
     elif isinstance(source, numpy.ndarray):
@@ -442,7 +442,7 @@ def readData(source, **args):
     
     if source is None:
         return None;   
-    elif isinstance(source, basestring):
+    elif isinstance(source, str):
         mod = dataFileNameToModule(source);
         return mod.readData(source, **args);
     elif isinstance(source, numpy.ndarray ):
@@ -531,10 +531,10 @@ def convertData(source, sink, **args):
     if source is None:
         return None;   
     
-    elif isinstance(source, basestring):
+    elif isinstance(source, str):
         if sink is None:        
             return readData(source, **args);
-        elif isinstance(sink, basestring):
+        elif isinstance(sink, str):
             if args == {} and dataFileNameToType(source) ==dataFileNameToType(sink):
                 return copyData(source, sink);
             else:
@@ -546,7 +546,7 @@ def convertData(source, sink, **args):
     elif isinstance(source, numpy.ndarray):
         if sink is None:
             return dataToRange(source, **args);
-        elif isinstance(sink,  basestring):
+        elif isinstance(sink,  str):
             data = dataToRange(source, **args);
             return writeData(sink, data);
         else:
@@ -653,13 +653,13 @@ def pointsToCoordinatesAndPropertiesFileNames(filename, propertiesPostfix = '_in
         Todo: Move this to a class that handles points and their meta data
     """  
     
-    if isinstance(filename, basestring):
+    if isinstance(filename, str):
         return (filename, filename[:-4] + propertiesPostfix + filename[-4:])
     elif isinstance(filename, tuple):
         if len(filename) == 1:
             if filename[0] is None:
                 return (None, None);
-            elif isinstance(filename[0], basestring):
+            elif isinstance(filename[0], str):
                 return (filename[0], filename[0][:-4] + propertiesPostfix + filename[0][-4:]);
             else:
                 raise RuntimeError('pointsFilenames: invalid filename specification!');
@@ -686,7 +686,7 @@ def pointShiftFromRange(dataSize, x = all, y = all, z = all, **args):
         tuple: shift of points from original origin of data to origin of range reduced data
     """      
     
-    if isinstance(dataSize, basestring):
+    if isinstance(dataSize, str):
         dataSize = self.dataSize(dataSize);
     dataSize = list(dataSize);
     
@@ -739,7 +739,7 @@ def pointsToRange(points, dataSize = all, x = all, y = all, z = all, shift = Fal
     
     if dataSize is all:
         dataSize = points.max(axis=0);
-    elif isinstance(dataSize, basestring):
+    elif isinstance(dataSize, str):
         dataSize = self.dataSize(dataSize);
     
     rr = [];
@@ -797,7 +797,7 @@ def readPoints(source, **args):
         source = (None, None);
     elif isinstance(source, numpy.ndarray):
         source = (source, None);
-    elif isinstance(source, basestring):
+    elif isinstance(source, str):
         source = (source, None);
     elif isinstance(source, tuple):
         if len(source) == 0:
@@ -807,13 +807,13 @@ def readPoints(source, **args):
                 source = (None, None);
             elif isinstance(source[0], numpy.ndarray):
                 source = (source[0], None);
-            elif isinstance(source[0], basestring):
+            elif isinstance(source[0], str):
                 source = pointsToCoordinatesAndPropertiesFileNames(source, **args);
             else:
                 raise RuntimeError('readPoints: cannot infer format of the requested data/file.');       
         elif len(source) == 2:
-            if not((source[0] is None or isinstance(source[0], basestring) or isinstance(source[0], numpy.ndarray)) and 
-                   (source[1] is None or isinstance(source[1], basestring) or isinstance(source[0], numpy.ndarray))):
+            if not((source[0] is None or isinstance(source[0], str) or isinstance(source[0], numpy.ndarray)) and 
+                   (source[1] is None or isinstance(source[1], str) or isinstance(source[0], numpy.ndarray))):
                raise RuntimeError('readPoints: cannot infer format of the requested data/file.');
         else:
             raise RuntimeError('readPoints: cannot infer format of the requested data/file.');
@@ -824,7 +824,7 @@ def readPoints(source, **args):
         points = None;
     elif isinstance(source[0], numpy.ndarray):
         points = source[0];
-    elif isinstance(source[0], basestring):
+    elif isinstance(source[0], str):
         mod = self.pointFileNameToModule(source[0]);
         points = mod.readPoints(source[0]);
 
@@ -832,7 +832,7 @@ def readPoints(source, **args):
         properties = None;
     elif isinstance(source[1], numpy.ndarray):
         properties = source[1];
-    elif isinstance(source[1], basestring):
+    elif isinstance(source[1], str):
         mod = self.pointFileNameToModule(source[1]);
         properties = mod.readPoints(source[1]);
         
@@ -862,7 +862,7 @@ def writePoints(sink, points, **args):
     
     if sink is None:
         sink = (None, None);
-    elif isinstance(sink, basestring):
+    elif isinstance(sink, str):
         sink = (sink, None);
     elif isinstance(sink, tuple):
         if len(sink) == 0:
@@ -870,12 +870,12 @@ def writePoints(sink, points, **args):
         elif len(sink) == 1:
             if sink[0] is None:
                 sink = (None, None);
-            elif isinstance(sink, basestring):
+            elif isinstance(sink, str):
                 sink = pointsToCoordinatesAndPropertiesFileNames(sink, **args);
             else:
                 raise RuntimeWarning('sink not well defined!')
         elif len(sink) == 2:
-            if not((sink[0] is None or isinstance(sink[0], basestring)) and (sink[1] is None or isinstance(sink[1], basestring))):
+            if not((sink[0] is None or isinstance(sink[0], str)) and (sink[1] is None or isinstance(sink[1], str))):
                 raise RuntimeWarning('sink not well defined!')
         else:
             raise RuntimeWarning('sink not well defined!')

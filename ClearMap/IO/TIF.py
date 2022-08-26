@@ -125,7 +125,7 @@ def readData(filename, x = all, y = all, z = all, **args):
             #print rz;
             #print dsize            
             
-            for i in range(rz[0], rz[1]):
+            for i in range(int(rz[0]), int(rz[1])):
                 xydata = t.pages[i].asarray();
                 #data[:,:,i-rz[0]] = io.dataToRange(xydata, x = x, y = y);
                 data[:,:,i-rz[0]] = io.dataToRange(xydata.transpose([1,0]), x = x, y = y);
