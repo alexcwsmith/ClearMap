@@ -420,7 +420,7 @@ def resampleData(source, sink = None,  orientation = None, dataSizeSink = None, 
     """
     orientation = fixOrientation(orientation);
     
-    if isinstance(dataSizeSink, basestring):
+    if isinstance(dataSizeSink, str):
         dataSizeSink = io.dataSize(dataSizeSink);
 
     #orient actual resolutions onto reference resolution    
@@ -501,7 +501,7 @@ def resampleData(source, sink = None,  orientation = None, dataSizeSink = None, 
         if io.isFileExpression(source):
             sink = os.path.split(source);
             sink = os.path.join(sink[0], 'resample_\d{4}.tif');
-        elif isinstance(source, basestring):
+        elif isinstance(source, str):
             sink = source + '_resample.tif';
         else:
             raise RuntimeError('resampleData: automatic sink naming not supported for non string source!');
@@ -554,7 +554,7 @@ def resampleDataInverse(sink, source = None, dataSizeSource = None, orientation 
 
     dataSizeSink = resampledData.shape;
     
-    if isinstance(dataSizeSource, basestring):
+    if isinstance(dataSizeSource, str):
         dataSizeSource = io.dataSize(dataSizeSource);
 
     dataSizeSource, dataSizeSink, resolutionSource, resolutionSink = resampleDataSize(dataSizeSource = dataSizeSource, dataSizeSink = dataSizeSink, 
@@ -660,7 +660,7 @@ def resamplePoints(pointSource, pointSink = None, dataSizeSource = None, dataSiz
     orientation = fixOrientation(orientation);
 
     #datasize of data source
-    if isinstance(dataSizeSource, basestring):
+    if isinstance(dataSizeSource, str):
         dataSizeSource = io.dataSize(dataSizeSource);
     
     dataSizeSource, dataSizeSink, resolutionSource, resolutionSink = resampleDataSize(dataSizeSource = dataSizeSource, dataSizeSink = dataSizeSink, 
@@ -722,7 +722,7 @@ def resamplePointsInverse(pointSource, pointSink = None, dataSizeSource = None, 
     orientation = fixOrientation(orientation);
     
     #datasize of data source
-    if isinstance(dataSizeSource, basestring):
+    if isinstance(dataSizeSource, str):
         dataSizeSource = io.dataSize(dataSizeSource);
     
     dataSizeSource, dataSizeSink, resolutionSource, resolutionSink = resampleDataSize(dataSizeSource = dataSizeSource, dataSizeSink = dataSizeSink, 

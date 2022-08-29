@@ -510,7 +510,7 @@ def transformData(source, sink = [], transformParameterFile = None, transformDir
     if isinstance(source, numpy.ndarray):
         imgname = os.path.join(tempfile.gettempdir(), 'elastix_input.tif');
         io.writeData(source, imgname);
-    elif isinstance(source, basestring):
+    elif isinstance(source, str):
         if io.dataFileNameToType(source) == "TIF":
             imgname = source;
         else:
@@ -550,7 +550,7 @@ def transformData(source, sink = [], transformParameterFile = None, transformDir
         raise RuntimeError('transformData: failed executing: ' + cmd);
     
     
-    if not isinstance(source, basestring):
+    if not isinstance(source, str):
         os.remove(imgname);
 
     if sink == []:
@@ -558,7 +558,7 @@ def transformData(source, sink = [], transformParameterFile = None, transformDir
     elif sink is None:
         resultfile = getResultDataFile(resultdirname);
         return io.readData(resultfile);
-    elif isinstance(sink, basestring):
+    elif isinstance(sink, str):
         resultfile = getResultDataFile(resultdirname);
         return io.convertData(resultfile, sink);
     else:
@@ -621,7 +621,7 @@ def deformationField(sink = [], transformParameterFile = None, transformDirector
         if resultDirectory is None:
             shutil.rmtree(resultdirname);
         return data;
-    elif isinstance(sink, basestring):
+    elif isinstance(sink, str):
         resultfile = getResultDataFile(resultdirname);
         data = io.convertData(resultfile, sink);
         if resultDirectory is None:
@@ -710,7 +710,7 @@ def transformPoints(source, sink = None, transformParameterFile = None, transfor
         tmpFile = os.path.join(tempfile.tempdir, 'elastix_input.txt');
 
     # write text file
-    if isinstance(source, basestring):
+    if isinstance(source, str):
         
         #check if we have elastix signature                 
         with open(source) as f:

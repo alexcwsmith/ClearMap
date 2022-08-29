@@ -35,7 +35,7 @@ def voxelize(points, dataSize = None, sink = None, voxelizeParameter = None,  me
     
     if dataSize is None:
         dataSize = tuple(int(math.ceil(points[:,i].max())) for i in range(points.shape[1]));
-    elif isinstance(dataSize, basestring):
+    elif isinstance(dataSize, str):
         dataSize = io.dataSize(dataSize);
     
     points = io.readPoints(points);
@@ -75,7 +75,7 @@ def voxelizePixel(points,  dataSize = None, weights = None):
     
     if dataSize is None:
         dataSize = tuple(int(math.ceil(points[:,i].max())) for i in range(points.shape[1]));
-    elif isinstance(dataSize, basestring):
+    elif isinstance(dataSize, str):
         dataSize = io.dataSize(dataSize);
     
     if weights is None:
