@@ -14,7 +14,8 @@ pyximport.install(setup_args={"include_dirs":numpy.get_include()}, reload_suppor
 import ClearMap.IO as io
 import ClearMap.Analysis.VoxelizationCode as vox
 
-def voxelize(points, dataSize = None, sink = None, voxelizeParameter = None,  method = 'Spherical', size = (5,5,5), weights = None):
+def voxelize(points, dataSize = None, sink = None, voxelizeParameter = None, 
+             method = 'Spherical', size = (5,5,5), weights = None, ImageProcessingMethod='SpotDetection'):
     """Converts a list of points into an volumetric image array
     
     Arguments:
@@ -53,7 +54,7 @@ def voxelize(points, dataSize = None, sink = None, voxelizeParameter = None,  me
             data = vox.voxelizeRectangleWithWeights(points.astype('float'), dataSize[0], dataSize[1], dataSize[2], size[0], size[1], size[2], weights);
     
     elif method.lower() == 'pixel':
-        data = voxelizePixel(points, dataSize, weights);
+        data = voxelizePixel(points, dataSize, weights, ImageProcessingMethod=ImageProcessingMethod);
         
     else:
         raise RuntimeError('voxelize: mode: %s not supported!' % method);
@@ -61,7 +62,7 @@ def voxelize(points, dataSize = None, sink = None, voxelizeParameter = None,  me
     return io.writeData(sink, data);
 
 
-def voxelizePixel(points,  dataSize = None, weights = None):
+def voxelizePixel(points,  dataSize = None, weights = None, ImageProcessingMethod='SpotDetection'):
     """Mark pixels/voxels of each point in an image array
     
     Arguments:
@@ -72,7 +73,8 @@ def voxelizePixel(points,  dataSize = None, weights = None):
     Returns:
         (array): volumetric data with with points marked in voxels
     """
-    
+    if ImageProcessingMethod.lower() == "ilastik":
+        points = points.astype('int')
     if dataSize is None:
         dataSize = tuple(int(math.ceil(points[:,i].max())) for i in range(points.shape[1]));
     elif isinstance(dataSize, str):

@@ -187,7 +187,8 @@ def plotOverlayLabel(dataSource, labelSource, alpha = False, labelColorMap = 'je
 
 
 
-def overlayPoints(dataSource, pointSource, sink = None, pointColor = [1,0,0], x = all, y = all, z = all):
+def overlayPoints(dataSource, pointSource, sink = None, pointColor = [1,0,0], x = all, y = all, z = all,
+                  ImageProcessingMethod='SpotDetection'):
     """Overlay points on 3D data and return as color image
     
     Arguments:
@@ -207,7 +208,8 @@ def overlayPoints(dataSource, pointSource, sink = None, pointColor = [1,0,0], x 
     #print data.shape
     
     if not pointColor is None:
-        dmax = data.max(); dmin = data.min();
+        dmax = data.max()
+        dmin = data.min();
         if dmin == dmax:
             dmax = dmin + 1;
         cimage = numpy.repeat( (data - dmin) / (dmax - dmin), 3);
@@ -217,13 +219,18 @@ def overlayPoints(dataSource, pointSource, sink = None, pointColor = [1,0,0], x 
             for p in points: # faster version using voxelize ?
                 cimage[p[0], p[1], :] = pointColor;
         elif data.ndim == 3:
-            for p in points: # faster version using voxelize ?
-                cimage[p[0], p[1], p[2], :] = pointColor;
+            if ImageProcessingMethod.lower() == "ilastik":
+                points = points.astype('int')
+                for p in points: # faster version using voxelize ?
+                    cimage[p[0], p[1], p[2], :] = pointColor;
+            else:
+                for p in points: # faster version using voxelize ?
+                    cimage[p[0], p[1], p[2], :] = pointColor;
         else:
             raise RuntimeError('overlayPoints: data dimension %d not suported' % data.ndim);
     
     else:
-        cimage = vox.voxelize(points, data.shape, method = 'Pixel');
+        cimage = vox.voxelize(points, data.shape, method = 'Pixel', ImageProcessingMethod=ImageProcessingMethod);
         cimage = cimage.astype(data.dtype) * data.max();
         data.shape = data.shape + (1,);
         cimage.shape =  cimage.shape + (1,);
