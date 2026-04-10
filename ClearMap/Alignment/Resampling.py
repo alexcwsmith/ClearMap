@@ -69,14 +69,16 @@ import os
 import math
 import numpy
 
-import multiprocessing
+#import multiprocessing
+import multiprocess as mp
 #from pathos.pools import ProcessPool 
 
 import tempfile
 
 import shutil
 import cv2
-
+import time
+import gc
 #import matplotlib.pyplot as plt
 
 import ClearMap.IO.IO as io
@@ -324,7 +326,6 @@ def fixInterpolation(interpolation):
     return interpolation;
         
 
-
 def resampleXY(source, dataSizeSink, sink = None, interpolation = 'linear', out = sys.stdout, verbose = True):
     """Resample a 2d image slice
     
@@ -342,53 +343,42 @@ def resampleXY(source, dataSizeSink, sink = None, interpolation = 'linear', out 
         array or str: resampled data or file name
     """   
     
-    #out.write("Input: %s Output: " % (inputFile, soutputFile))
-    data = io.readData(source);
-    dataSize = data.shape;
-    
-    #print dataSize, dataSizeSink    
-    
+    data = io.readData(source)
+    dataSize = data.shape
+        
     if data.ndim != 2:
         raise RuntimeError('resampleXY: expects 2d image source, found %dd' % data.ndim)
-    #print sagittalImageSize;
-    
-    #dataSizeSink = tuple([int(math.ceil(dataSize[i] *  resolutionSource[i]/resolutionSink[i])) for i in range(2)]);
+
     if verbose:
         out.write(("resampleData: Imagesize: %d, %d " % (dataSize[0], dataSize[1])) + ("Resampled Imagesize: %d, %d" % (dataSizeSink[0], dataSizeSink[1])))
-        #out.write(("resampleData: Imagesize: %d, %d " % dataSize) + ("Resampled Imagesize: %d, %d" % (outputSize[1], outputSize[0])))
     
-    # note: cv2.resize reverses x-Y axes
     interpolation = fixInterpolation(interpolation)
-    sinkData = cv2.resize(data,  (dataSizeSink[1], dataSizeSink[0]), interpolation = interpolation);
-    #sinkData = cv2.resize(data,  outputSize);
-    #sinkData = scipy.misc.imresize(sagittalImage, outputImageSize, interp = 'bilinear'); #normalizes images -> not usefull for stacks !
+    sinkData = cv2.resize(data,  (dataSizeSink[1], dataSizeSink[0]), interpolation = interpolation)
     
-    #out.write("resampleData: resized Image size: %d, %d " % sinkData.shape)
-    
-    return io.writeData(sink, sinkData);
+    return io.writeData(sink, sinkData)
 
 
 def _resampleXYParallel(arg):
     """Resampling helper function to use for parallel resampling of image slices"""
     
-    fileSource = arg[0];
-    fileSink = arg[1];
-    dataSizeSink = arg[2];
-    interpolation = arg[3];
-    ii = arg[4];
-    nn = arg[5];
-    verbose = arg[6];
+    fileSource = arg[0]
+    fileSink = arg[1]
+    dataSizeSink = arg[2]
+    interpolation = arg[3]
+    ii = arg[4]
+    nn = arg[5]
+    verbose = arg[6]
     
-    pw = ProcessWriter(ii);
+    pw = ProcessWriter(ii)
+
     if verbose:
         pw.write("resampleData: resampling in XY: image %d / %d" % (ii, nn))
-    
-    data = numpy.squeeze(io.readData(fileSource, z = ii));
-    resampleXY(data, sink = fileSink, dataSizeSink = dataSizeSink, interpolation = interpolation, out = pw, verbose = verbose);
 
+    data = numpy.squeeze(io.readData(fileSource, z = ii))
+    res = resampleXY(data, sink = fileSink, dataSizeSink = dataSizeSink, interpolation = interpolation, out = pw, verbose = verbose)
+    return res
 
-
-
+#%%
 def resampleData(source, sink = None,  orientation = None, dataSizeSink = None, resolutionSource = (4.0625, 4.0625, 3), resolutionSink = (25, 25, 25), 
                  processingDirectory = None, processes = 1, cleanup = True, verbose = True, interpolation = 'linear', **args):
     """Resample data of source in resolution and orientation
@@ -418,59 +408,63 @@ def resampleData(source, sink = None,  orientation = None, dataSizeSink = None, 
         * only a minimal set of information to detremine the resampling parameter 
           has to be given, e.g. dataSizeSource and dataSizeSink
     """
-    orientation = fixOrientation(orientation);
+    gc.collect()
+    orientation = fixOrientation(orientation)
     
     if isinstance(dataSizeSink, str):
-        dataSizeSink = io.dataSize(dataSizeSink);
+        dataSizeSink = io.dataSize(dataSizeSink)
 
     #orient actual resolutions onto reference resolution    
-    dataSizeSource = io.dataSize(source);
+    dataSizeSource = io.dataSize(source)
         
     dataSizeSource, dataSizeSink, resolutionSource, resolutionSink = resampleDataSize(dataSizeSource = dataSizeSource, dataSizeSink = dataSizeSink, 
-                                                                                      resolutionSource = resolutionSource, resolutionSink = resolutionSink, orientation = orientation);
+                                                                                      resolutionSource = resolutionSource, resolutionSink = resolutionSink, orientation = orientation)
     
-    dataSizeSinkI = orientDataSizeInverse(dataSizeSink, orientation);
+    dataSizeSinkI = orientDataSizeInverse(dataSizeSink, orientation)
     
     #print dataSizeSource, dataSizeSink, resolutionSource, resolutionSink, dataSizeSinkI
     
-     
     #rescale in x y in parallel
     if processingDirectory == None:
-        processingDirectory = tempfile.mkdtemp();     
+        processingDirectory = tempfile.mkdtemp();
         
-    interpolation = fixInterpolation(interpolation);
+    interpolation = fixInterpolation(interpolation)
      
-    nZ = dataSizeSource[2];
-    pool = multiprocessing.Pool(processes=processes);
-    argdata = [];
+    nZ = dataSizeSource[2]
+    argdata = []
     for i in range(nZ):
-        argdata.append( (source, os.path.join(processingDirectory, 'resample_%04d.tif' % i), dataSizeSinkI, interpolation, i, nZ, verbose) );  
+        argdata.append( (source, os.path.join(processingDirectory, 'resample_%04d.tif' % i), dataSizeSinkI, interpolation, i, nZ, verbose) )
         #print argdata[i]
-#    pool.map(_resampleXYParallel, argdata);
-    pool.map_async(_resampleXYParallel, argdata);
+    pool = mp.Pool(processes=processes, maxtasksperchild=None)
+    pool.map(_resampleXYParallel, argdata)
+    #pool.map_async(_resampleXYParallel, argdata);
+   # pool = ProcessPool(nodes=processes)
+    
+    time.sleep(0.5)
 
     pool.close() #TODO: Check if this fixes issue
     pool.join()
+ #   pool.terminate()
     
     #rescale in z
-    fn = os.path.join(processingDirectory, 'resample_%04d.tif' % 0);
-    data = io.readData(fn);
-    zImage = numpy.zeros((dataSizeSinkI[0], dataSizeSinkI[1], nZ), dtype = data.dtype);    
+    fn = os.path.join(processingDirectory, 'resample_%04d.tif' % 0)
+    data = io.readData(fn)
+    zImage = numpy.zeros((dataSizeSinkI[0], dataSizeSinkI[1], nZ), dtype = data.dtype)  
     for i in range(nZ):
         if verbose and i % 10 == 0:
-            print("resampleData; reading %d/%d" % (i, nZ));
-        fn = os.path.join(processingDirectory, 'resample_%04d.tif' % i);
-        zImage[:,:, i] = io.readData(fn);
+            print("resampleData; reading %d/%d" % (i, nZ))
+        fn = os.path.join(processingDirectory, 'resample_%04d.tif' % i)
+        zImage[:,:, i] = io.readData(fn)
 
     
-    resampledData = numpy.zeros(dataSizeSinkI, dtype = zImage.dtype);
+    resampledData = numpy.zeros(dataSizeSinkI, dtype = zImage.dtype)
 
     for i in range(dataSizeSinkI[0]):
         if verbose and i % 25 == 0:
             print("resampleData: processing %d/%d" % (i, dataSizeSinkI[0]))
         #resampledImage[:, iImage ,:] =  scipy.misc.imresize(zImage[:,iImage,:], [resizedZAxisSize, sagittalImageSize[1]] , interp = 'bilinear'); 
         #cv2.resize takes reverse order of sizes !
-        resampledData[i ,:, :] =  cv2.resize(zImage[i,:,:], (dataSizeSinkI[2], dataSizeSinkI[1]), interpolation = interpolation);
+        resampledData[i ,:, :] =  cv2.resize(zImage[i,:,:], (dataSizeSinkI[2], dataSizeSinkI[1]), interpolation = interpolation)
         #resampledData[i ,:, :] =  cv2.resize(zImage[i,:, :], (dataSize[1], resizedZSize));
     
 
@@ -481,16 +475,16 @@ def resampleData(source, sink = None,  orientation = None, dataSizeSink = None, 
     if not orientation is None:
         
         #reorient
-        per = orientationToPermuation(orientation);
-        resampledData = resampledData.transpose(per);
+        per = orientationToPermuation(orientation)
+        resampledData = resampledData.transpose(per)
     
         #reverse orientation after permuting e.g. (-2,1) brings axis 2 to first axis and we can reorder there
         if orientation[0] < 0:
-            resampledData = resampledData[::-1, :, :];
+            resampledData = resampledData[::-1, :, :]
         if orientation[1] < 0:
-            resampledData = resampledData[:, ::-1, :]; 
+            resampledData = resampledData[:, ::-1, :]
         if orientation[2] < 0:
-            resampledData = resampledData[:, :, ::-1];
+            resampledData = resampledData[:, :, ::-1]
         
         #bring back from y,x,z to z,y,x
         #resampledImage = resampledImage.transpose([2,0,1]);
@@ -499,17 +493,19 @@ def resampleData(source, sink = None,  orientation = None, dataSizeSink = None, 
     
     if sink == []:
         if io.isFileExpression(source):
-            sink = os.path.split(source);
-            sink = os.path.join(sink[0], 'resample_\d{4}.tif');
+            sink = os.path.split(source)
+            sink = os.path.join(sink[0], 'resample_\d{4}.tif')
         elif isinstance(source, str):
-            sink = source + '_resample.tif';
+            sink = source + '_resample.tif'
         else:
-            raise RuntimeError('resampleData: automatic sink naming not supported for non string source!');
+            raise RuntimeError('resampleData: automatic sink naming not supported for non string source!')
 
     if cleanup:
-        shutil.rmtree(processingDirectory);
-   
-    return io.writeData(sink, resampledData);
+        shutil.rmtree(processingDirectory)
+    if not verbose:
+        print(f"Completed {sink}")
+    gc.collect()
+    return io.writeData(sink, resampledData)
     
     
     
@@ -604,12 +600,12 @@ def resampleDataInverse(sink, source = None, dataSizeSource = None, orientation 
     io.writeData(files, resampledDataXY);
     
     nZ = dataSizeSource[2];
-    pool = multiprocessing.Pool(processes=processes);
+    pool = mp.Pool(processes=processes, maxtasksperchild=None);
     argdata = [];
     for i in range(nZ):
         argdata.append( (source, fl.fileExpressionToFileName(files, i), dataSizeSource, interpolation, i, nZ) );  
- #   pool.map(_resampleXYParallel, argdata);
-    pool.map_async(_resampleXYParallel, argdata);
+    pool.map(_resampleXYParallel, argdata);
+ #   pool.map_async(_resampleXYParallel, argdata);
 
     pool.close() #TODO: Check if this fixes issue
     pool.join()
