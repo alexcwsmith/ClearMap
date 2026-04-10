@@ -780,6 +780,7 @@ def transformPoints(source, sink = None, transformParameterFile = None, transfor
         for f in os.listdir(outdirname):
             os.remove(os.path.join(outdirname, f));
         os.rmdir(outdirname)
+        os.remove(os.path.join(tempfile.tempdir, 'elastix_input.txt')) #Added by ACWS 8/8/25; testing
         
         return io.writePoints(sink, transpoints);
 
